@@ -15,3 +15,7 @@
 [] - bring firebase data into pinia store
 [] - rebuild header
 [] - rebuild footer
+
+- 12.6.2023
+    Issue 1: Firebase database setup
+    Issue 2: Copy content of version 2
