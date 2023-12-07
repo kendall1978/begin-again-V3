@@ -8,6 +8,10 @@
 </template>
 
 <script>
+    import { useMainStore } from '@/store/main'
+
+    const mainStore = useMainStore()
+
     export default {
         created () {
             this.fetchSheetsData()

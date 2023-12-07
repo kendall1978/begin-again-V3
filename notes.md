@@ -6,3 +6,12 @@
     Email: Beginagaindev@gmail.com
     Pass: Mx64qazi
     Key = AIzaSyAkji2yJQgKHJJr8fq_f-ttrX0fXrFwQTI
+    SeviceAccount = beginagaindev@beginagainministries.iam.gserviceaccount.com
+
+### Tasks
+[] - setup nuxt
+[] - setup pinia
+[] - map firebase firestore
+[] - bring firebase data into pinia store
+[] - rebuild header
+[] - rebuild footer

@@ -16,6 +16,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "abbrev": "^1.1.1",
     "acorn": "^8.8.2",
     "agent-base": "^6.0.2",
@@ -292,7 +293,7 @@
     "picocolors": "^1.0.0",
     "picomatch": "^2.3.1",
     "pify": "^2.3.0",
-    "pinia": "^2.0.36",
+    "pinia": "^2.1.7",
     "pkg-types": "^1.0.3",
     "postcss": "^8.4.23",
     "postcss-calc": "^9.0.1",
