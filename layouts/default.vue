@@ -1,26 +1,26 @@
 <template>
-    <TheNav/>
-    <div>
-        TEST
-        <slot />
-    </div>
-    <TheFooter/>
+  <TheNav />
+  <WhoAreWe />
+  <MegansPlace />
+  <Furniture />
+  <Contact />
+  <Directors />
+  <TheFooter />
 </template>
 
 <script>
-    import { useMainStore } from '@/store/main'
+import { useMainStore } from "@/store/main";
 
-    const mainStore = useMainStore()
+const mainStore = useMainStore();
 
-    export default {
-        created () {
-            this.fetchSheetsData()
-        },
-        methods: {
-            fetchSheetsData () {
-                console.log('test')
-            }
-        }
-    } 
-
+export default {
+  created() {
+    this.fetchSheetsData();
+  },
+  methods: {
+    fetchSheetsData() {
+      console.log("test");
+    },
+  },
+};
 </script>
