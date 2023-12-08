@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-body pt-5">
+  <div class="hero-body">
     <div class="container has-text-centered">
       <div>
         <img src="../assets/BAM-logo1.png" />

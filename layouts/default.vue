@@ -1,6 +1,8 @@
 <template>
   <TheNav />
-  <WhoAreWe />
+  <section class="mt-5">
+    <WhoAreWe />
+  </section>
   <MegansPlace />
   <Furniture />
   <Contact />
