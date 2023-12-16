@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import firestoreDb from '../server/lib/firebase';
 
 export const useMainStore = defineStore('main', {
     state: () => ({
@@ -14,6 +15,9 @@ export const useMainStore = defineStore('main', {
     },
     actions: {
         SET_DIRECTORS () {
+
+        },
+        GET_DIRECTORS () {
 
         }
     }

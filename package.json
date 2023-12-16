@@ -141,6 +141,7 @@
     "figures": "^5.0.0",
     "file-uri-to-path": "^1.0.0",
     "fill-range": "^7.0.1",
+    "firebase": "^10.7.1",
     "flat": "^5.0.2",
     "follow-redirects": "^1.15.2",
     "formdata-polyfill": "^4.0.10",
