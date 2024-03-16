@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <NuxtWelcome /> -->
-    <NuxtPage />
+    <NuxtPage></NuxtPage>
   </div>
 </template>
 
@@ -9,3 +8,7 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 @import "https://cdn.jsdelivr.net/npm/bulma-social@2/css/single/facebook/facebook.min.css";
 </style>
+
+<script setup lang="ts">
+
+</script>
