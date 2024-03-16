@@ -1,13 +1,17 @@
 <template>
-  <TheNav />
-  <section class="mt-5">
-    <WhoAreWe />
-  </section>
-  <MegansPlace />
-  <Furniture />
-  <Contact />
-  <Directors />
-  <TheFooter />
+  <div>
+    <header>
+      <TheNav />
+    </header>
+    <main>
+      <WhoAreWe />
+      <MegansPlace />
+      <Furniture />
+      <Contact />
+      <Directors/>
+      <TheFooter />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -17,12 +21,15 @@ const mainStore = useMainStore();
 
 export default {
   created() {
-    this.fetchSheetsData();
+    this.initData()
   },
   methods: {
     fetchSheetsData() {
       console.log("test");
     },
+    initData () {
+      mainStore.INIT_ALL_DATA();
+    }
   },
 };
 </script>

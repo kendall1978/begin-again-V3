@@ -1,8 +1,8 @@
 <template>
     <div>
-        <NuxtLayout />
+        <NuxtLayout></NuxtLayout>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 </script>
