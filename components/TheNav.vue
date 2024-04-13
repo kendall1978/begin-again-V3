@@ -22,7 +22,7 @@
 
     <div class="navbar-menu" id="nav-links">
       <div class="navbar-start">
-        <NuxtLink class="navbar-item" :to="`/articles/${megansPlaceSlug}`">Megan's Place</NuxtLink>
+        <NuxtLink v-if="MegansPlace" class="navbar-item" :to="`/articles/${MegansPlace.slug}`">Megan's Place</NuxtLink>
         <a class="navbar-item" href="">Board of Directors</a>
         <NuxtLink class="navbar-item" to="/admin">Admin</NuxtLink>
       </div>
@@ -56,22 +56,12 @@
 </template>
 
 <script>
-import { useMainStore } from "@/store/main";
+import { mapState } from 'pinia'
+import { useMinistryDataStore } from "~/store/MinistryData";
 
 export default {
-  name: "TheNav",
-  data () {
-    return {
-      mainStore: useMainStore()
-      // megansPlaceSlug: this.mainStore.articles[0].slug
-    }
-  },
-  created() {
-  },
   computed: {
-    async megansPlaceSlug() {
-      return await this.mainStore.Articles[0].slug
-    }
+    ...mapState(useMinistryDataStore, ['MegansPlace'])
   }
 }
 </script>
