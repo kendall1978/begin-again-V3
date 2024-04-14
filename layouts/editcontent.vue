@@ -1,5 +1,6 @@
 <template>
     <div>
+        <NuxtLink class="navbar-item" to="/">Home Page</NuxtLink>
         <section class="section">
             <h1 class="title">
                 Edit Directors
@@ -19,12 +20,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="directors in mainStore.directors">
-                                    <td>{{ directors.firstname }}</td>
-                                    <td>{{ directors.lastname }}</td>
-                                    <td>{{ directors.title }}</td>
-                                    <td><span v-if="directors.live">Yes</span><span v-else>NO</span></td>
-                                    <td>{{ directors.headshot_img_url }}</td>
+                                <tr v-for="director in this.Directors">
+                                    <td>{{ director.firstname }}</td>
+                                    <td>{{ director.lastname }}</td>
+                                    <td>{{ director.title }}</td>
+                                    <td><span v-if="director.live">Yes</span><span v-else>NO</span></td>
+                                    <td>{{ director.headshot_img_url }}</td>
                                     <td><a><font-awesome-icon icon="fa fa-pencil"/></a></td>
                                 </tr>
                             </tbody>
@@ -100,28 +101,130 @@
                 </div>
             </div>
         </section>
+        <section class="section">
+            <h1 class="title">
+                Edit Articles
+            </h1>
+            <div class="tile is-ancestor">
+                <div class="tile is-parent is-vertical is-12">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Content</th>
+                                    <th>Article Image</th>
+                                    <th>Slug</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="article in this.Articles">
+                                    <td>{{ article.title }}</td>
+                                    <td>{{ article.author }}</td>
+                                    <td>{{ article.content }}</td>
+                                    <td>{{ article.article_img }}</td>
+                                    <td>{{ article.slug }}</td>
+                                    <td>{{ article.created_at }}</td>
+                                    <td><button class="js-modal-trigger" @click="this.openArticleModal(article.id)"><font-awesome-icon icon="fa fa-pencil"/></button></td>
+                                </tr>
+                            </tbody>
+                            <!-- {{ mainStore.directors }} -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <template v-for="article in this.Articles"><ArticleModal :id="`article-edit-modal-${article.id}`" :data-article="article"></ArticleModal></template>
+            <div class="tile is-parent is-vertical is-5">
+                <h1 class="title">Add New</h1>
+                <div class="tile is-child is-7">
+                    <div class="container">
+                        <div class="field">
+                            <label class="label">First Name</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="John...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-child is-7">
+                    <div class="container">
+                        <div class="field">
+                            <label class="label">Last Name</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Doe...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-child is-7">
+                    <div class="container">
+                        <div class="field">
+                            <label class="label">Title</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Chairman...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-child is-7">
+                    <div class="container">
+                        <div class="field">
+                            <label class="label">Biography</label>
+                            <div class="control">
+                                <textarea class="textarea" placeholder="Director Biography"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-child is-9">
+                    <div class="container">
+                        <div class="field">
+                            <label class="checkbox">
+                                <input type="checkbox"/>
+                                Live on website?
+                            </label>
+                        </div>
+                        <div class="file">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="headshot">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <font-awesome-icon icon="fa-solid fa-upload"/>
+                                    </span>
+                                    <span class="file-label">
+                                        Upload Headshot…
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
-import { useMainStore } from "@/store/main";
-
+import { mapState } from 'pinia'
+import { useMinistryDataStore } from "~/store/MinistryData";
+import ArticleModal from "~/components/modals/ArticleModal.vue"
 export default {
-    name: "EditContent",
-    data() {
-        return {
-            mainStore: useMainStore()
-        }
+    components: {
+        ArticleModal
     },
-    created() {
-        console.log(this.mainStore)
-        this.fetchData()
+    mounted () {
+
+    },
+    computed: {
+        ...mapState(useMinistryDataStore, ['Directors', 'Articles'])
     },
     methods: {
-        fetchData() {
-            this.mainStore.INIT_ALL_DATA();
+        openArticleModal (id) {
+            const target = document.getElementById(`article-edit-modal-${id}`) 
+            target.classList.add('is-active')
         }
     }
 }
-
 </script>

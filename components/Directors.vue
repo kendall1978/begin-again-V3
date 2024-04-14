@@ -4,7 +4,7 @@
       <div class="title">
         <h1 class="title is-2">Board of Directors</h1>
       </div>
-      <div v-for="director in directorsArray" class="columns is-multiline mt-5 is-8 is-variable">
+      <div v-for="director in this.Directors" class="columns is-multiline mt-5 is-8 is-variable">
         <div class="column is-12-mobile is-6-tablet is-6-desktop">
           <div class="card p-2">
             <div class="card-content">
@@ -19,17 +19,12 @@
 </template>
 
 <script>
-import { useMainStore } from "@/store/main";
+import { mapState } from 'pinia'
+import { useMinistryDataStore } from "~/store/MinistryData";
 
 export default {
-  setup() {
-    const mainStore = useMainStore()
-    return { mainStore }
-  },
-  computed: {
-    directorsArray() {
-      return this.mainStore.Directors
+    computed: {
+        ...mapState(useMinistryDataStore, ['Directors'])
     }
-  }
 }
 </script>
