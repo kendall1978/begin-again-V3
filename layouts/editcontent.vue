@@ -29,18 +29,17 @@
                                     <td><a><font-awesome-icon icon="fa fa-pencil"/></a></td>
                                 </tr>
                             </tbody>
-                            <!-- {{ mainStore.directors }} -->
                         </table>
                     </div>
                 </div>
                 <div class="tile is-parent is-vertical is-5">
-                    <h1 class="title">Add New</h1>
+                    <h1 class="title">New Director</h1>
                     <div class="tile is-child is-7">
                         <div class="container">
                             <div class="field">
                                 <label class="label">First Name</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="John...">
+                                    <input class="input" v-model="newDirector.firstname" type="text" placeholder="John...">
                                 </div>
                             </div>
                         </div>
@@ -50,7 +49,7 @@
                             <div class="field">
                                 <label class="label">Last Name</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Doe...">
+                                    <input class="input" v-model="newDirector.lastname" type="text" placeholder="Doe...">
                                 </div>
                             </div>
                         </div>
@@ -60,7 +59,7 @@
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" placeholder="Chairman...">
+                                    <input class="input" v-model="newDirector.title" type="text" placeholder="Chairman...">
                                 </div>
                             </div>
                         </div>
@@ -70,7 +69,7 @@
                             <div class="field">
                                 <label class="label">Biography</label>
                                 <div class="control">
-                                    <textarea class="textarea" placeholder="Director Biography"></textarea>
+                                    <textarea class="textarea" v-model="newDirector.biography" placeholder="Director Biography"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -79,13 +78,13 @@
                         <div class="container">
                             <div class="field">
                                 <label class="checkbox">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" v-model="newDirector.live"/>
                                     Live on website?
                                 </label>
                             </div>
                             <div class="file">
                                 <label class="file-label">
-                                    <input class="file-input" type="file" name="headshot">
+                                    <input class="file-input" @change="this.setFile" type="file" name="headshot">
                                     <span class="file-cta">
                                         <span class="file-icon">
                                             <font-awesome-icon icon="fa-solid fa-upload"/>
@@ -96,6 +95,11 @@
                                     </span>
                                 </label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="tile is-child is-3">
+                        <div class="container">
+                            <button @click="this.addDirector" class="button is-success">Save</button>
                         </div>
                     </div>
                 </div>
@@ -117,6 +121,7 @@
                                     <th>Article Image</th>
                                     <th>Slug</th>
                                     <th>Created At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,30 +135,19 @@
                                     <td><button class="js-modal-trigger" @click="this.openArticleModal(article.id)"><font-awesome-icon icon="fa fa-pencil"/></button></td>
                                 </tr>
                             </tbody>
-                            <!-- {{ mainStore.directors }} -->
                         </table>
                     </div>
                 </div>
             </div>
             <template v-for="article in this.Articles"><ArticleModal :id="`article-edit-modal-${article.id}`" :data-article="article"></ArticleModal></template>
             <div class="tile is-parent is-vertical is-5">
-                <h1 class="title">Add New</h1>
+                <h1 class="title">New Article</h1>
                 <div class="tile is-child is-7">
                     <div class="container">
                         <div class="field">
-                            <label class="label">First Name</label>
+                            <label class="label">Author</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="John...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tile is-child is-7">
-                    <div class="container">
-                        <div class="field">
-                            <label class="label">Last Name</label>
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Doe...">
+                                <input class="input" type="text" v-model="newArticle.author" placeholder="John...">
                             </div>
                         </div>
                     </div>
@@ -163,7 +157,7 @@
                         <div class="field">
                             <label class="label">Title</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="Chairman...">
+                                <input class="input" type="text" v-model="newArticle.title" placeholder="Title">
                             </div>
                         </div>
                     </div>
@@ -171,34 +165,32 @@
                 <div class="tile is-child is-7">
                     <div class="container">
                         <div class="field">
-                            <label class="label">Biography</label>
+                            <label class="label">Content</label>
                             <div class="control">
-                                <textarea class="textarea" placeholder="Director Biography"></textarea>
+                                <textarea class="textarea" v-model="newArticle.content" placeholder="Article Content"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="tile is-child is-9">
                     <div class="container">
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox"/>
-                                Live on website?
-                            </label>
-                        </div>
-                        <div class="file">
+                        <div class="file has-name is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" type="file" name="headshot">
+                                <input class="file-input" @change="this.setArticleFile" type="file" name="resume" />
                                 <span class="file-cta">
-                                    <span class="file-icon">
-                                        <font-awesome-icon icon="fa-solid fa-upload"/>
-                                    </span>
-                                    <span class="file-label">
-                                        Upload Headshot…
-                                    </span>
+                                <span class="file-icon">
+                                    <font-awesome-icon icon="fa-solid fa-upload"/>
                                 </span>
+                                <span class="file-label"> Choose a file… </span>
+                                </span>
+                                <span class="file-name">{{ articleImageFile.article_img_name }}</span>
                             </label>
                         </div>
+                    </div>
+                </div>
+                <div class="tile is-child is-3">
+                    <div class="container">
+                        <button @click="this.addArticle" class="button is-success">Save</button>
                     </div>
                 </div>
             </div>
@@ -207,7 +199,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { useMinistryDataStore } from "~/store/MinistryData";
 import ArticleModal from "~/components/modals/ArticleModal.vue"
 export default {
@@ -217,13 +209,56 @@ export default {
     mounted () {
 
     },
+    data() {
+        return {
+            newDirector: {
+                firstname: '',
+                lastname: '',
+                biography: '',
+                headshot_img_url: '',
+                live: false,
+                title: ''
+            },
+            directorImageFile: {
+                headshot_img_data: {},
+                headshot_img_name: ''
+            },
+            newArticle: {
+                author: '',
+                title: '',
+                content: '',
+                created_at: '',
+                slug: '',
+                article_img: ''
+            },
+            articleImageFile: {
+                article_img_data: {},
+                article_img_name: 'New File...'
+            }
+        }
+    },
     computed: {
         ...mapState(useMinistryDataStore, ['Directors', 'Articles'])
     },
     methods: {
+        ...mapActions(useMinistryDataStore, ['ADD_DIRECTOR', 'ADD_ARTICLE']),
         openArticleModal (id) {
-            const target = document.getElementById(`article-edit-modal-${id}`) 
+            const target = document.getElementById(`article-edit-modal-${id}`)
             target.classList.add('is-active')
+        },
+        setFile(event) {
+            this.directorImageFile.headshot_img_data = event.target.files[0]
+            this.directorImageFile.headshot_img_name = event.target.files[0].name
+        },
+        addDirector () {
+            this.ADD_DIRECTOR(this.newDirector, this.directorImageFile)
+        },
+        setArticleFile(event) {
+            this.articleImageFile.article_img_data = event.target.files[0]
+            this.articleImageFile.article_img_name = event.target.files[0].name
+        },
+        addArticle () {
+            this.ADD_ARTICLE(this.newArticle, this.articleImageFile)
         }
     }
 }

@@ -8,7 +8,7 @@
       <MegansPlace />
       <Furniture />
       <Contact />
-      <Directors/>
+      <!-- <Directors/> -->
       <TheFooter />
     </main>
   </div>

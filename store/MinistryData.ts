@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { piniaInstance } from '~/server/lib/global';
 import { fireStore } from '~/server/lib/firestore';
-import { query, collection, getDocs, setDoc, onSnapshot } from '@firebase/firestore';
+import { query, collection, getDocs, setDoc, onSnapshot, doc, addDoc } from '@firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
 import { Directors, MegansPlace } from '#build/components';
 
 interface Article {
@@ -65,6 +66,55 @@ export const useMinistryDataStore = defineStore({
           live: config.live,
           title: config.title
         }
+      },
+      async ADD_DIRECTOR (newDirector, directorImageFile) {
+        // upload image to firebase storage
+        const storage = getStorage()
+        const storageRef = ref(storage, directorImageFile.headshot_img_name)
+        await uploadBytes(storageRef, directorImageFile.headshot_img_data).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            newDirector.headshot_img_url = downloadURL
+            addDoc(collection(fireStore, 'directors'), {
+              firstname: newDirector.firstname,
+              lastname: newDirector.lastname,
+              biography: newDirector.biography,
+              headshot_img_url: newDirector.headshot_img_url,
+              live: newDirector.live,
+              title: newDirector.title
+            }).then((snapshot) => {
+              console.log(snapshot)
+            })
+          });
+        });
+      },
+      async ADD_ARTICLE (newArticle, articleImageFile) {
+        // upload image to firebase storage
+        const storage = getStorage()
+        const storageRef = ref(storage, articleImageFile.headshot_img_name)
+        await uploadBytes(storageRef, articleImageFile.headshot_img_data).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            newArticle.article_img = downloadURL
+            addDoc(collection(fireStore, 'articles'), {
+              author: newArticle.author,
+              content: newArticle.content,
+              article_img: newArticle.article_img,
+              slug: newArticle.slug,
+              created_at: Date.now(),
+              
+            })
+          })
+        })
+      },
+      UPDATE_ARTICLE (articleId, newArticleData, articleImageFile) {
+        const docRef = doc(fireStore, "articles", articleId)
+        console.log(docRef)
+        
+        console.log("Article ID: " + articleId)
+        console.log(newArticleData)
+        console.log(articleImageFile)
+      },
+      GET_ARTICLE_BY_ID (id) {
+        
       }
     },
     getters: {

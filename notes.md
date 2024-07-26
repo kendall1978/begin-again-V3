@@ -19,3 +19,7 @@
 - 12.6.2023
     Issue 1: Firebase database setup
     Issue 2: Copy content of version 2
+
+- 5.20.2024
+    add a way to get an article an director by id (GET_ARTICLE_BY_ID)
+    
